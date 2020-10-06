@@ -1,0 +1,3 @@
+﻿  guessing_game.cpp
+C:\Users\ionsn\source\repos\guessing_game\guessing_game\guessing_game.cpp(145,23): warning C4018: '<': signed/unsigned mismatch
+  guessing_game.vcxproj -> C:\Users\ionsn\source\repos\guessing_game\Debug\guessing_game.exe
