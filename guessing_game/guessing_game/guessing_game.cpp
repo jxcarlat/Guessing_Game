@@ -75,15 +75,35 @@ void MaxGuessLieDetection(int &number, int &maxGuess, bool &liar)
 
 void FirstGoAround(int &number, int &maxGuess, int &minGuess, string &openResponse, bool &myFirstGo)
 {
-    number = 100;
+    number = 50;
     maxGuess = 100;
     minGuess = 0;
-    number = number / 2;
     cout << "Okay so I'm guessing your first number is " << number << ". Is this correct or is your number higher or lower?" << endl << "(Please type exactly higher or lower or y if correct)" << endl;
     cin >> openResponse;
     system("CLS");
     myFirstGo = true;
 }
+
+void ThirdGoAround(int& number, int& maxGuess, int& minGuess, string& openResponse, bool& myFirstGo)
+{
+    maxGuess = 100;
+    minGuess = 0;
+    cout << "Okay so I'm guessing your first number is " << number << ". Is this correct or is your number higher or lower?" << endl << "(Please type exactly higher or lower or y if correct)" << endl;
+    cin >> openResponse;
+    system("CLS");
+    myFirstGo = true;
+}
+
+int Mean(vector<int>& correctNumbers, int count)
+{
+    int sum = 0;
+    for (auto it = correctNumbers.begin(); it != correctNumbers.end(); it++)
+    {
+        sum += *it;
+    }
+    return (sum / count);
+}
+
 //Found two ways that could work: number = ((MAX_GUESS - number) / 2) + number for higher response and number = abs((MIN_GUESS - number) / 2 for lower response
 void Higher_Lower(string &openResponse, int &number, int &maxGuess, int &minGuess, bool &liar)
 {
@@ -157,15 +177,36 @@ void ResolveIt(string &openResponse, int &number, int &maxGuess, int &minGuess, 
     NumberGuess(number, openResponse);
 }
 
-void PlayAgain(vector<int> &correctNumbers, int &number, char &closeResponse, bool &myFirstGo)
+void PlayAgain(vector<int> &correctNumbers, int &number, char &closeResponse, bool &myFirstGo, int &count)
 {
     cout << "Nice! I got it!" << endl;
     correctNumbers.push_back(number);
     cout << "Would you like to play again?" << endl << "(Please type a response of Y or N)" << endl;
     cin >> closeResponse;
     Mistype(closeResponse);
-    if (closeResponse == 'y' || closeResponse == 'Y') myFirstGo = false;
+    if (closeResponse == 'y' || closeResponse == 'Y')
+    {
+        myFirstGo = false;
+        count++;
+    }
     system("CLS");
+}
+
+void Intro(vector<int> &correctNumbers, int &count, bool &myFirstGo, int &number, int &maxGuess, int &minGuess, string &openResponse)
+{
+    if (count < 3 && !myFirstGo)
+    {
+        FirstGoAround(number, maxGuess, minGuess, openResponse, myFirstGo);
+    }
+    else if (!myFirstGo)
+    {
+        number = Mean(correctNumbers, count);
+        ThirdGoAround(number, maxGuess, minGuess, openResponse, myFirstGo);
+    }
+    else
+    {
+        return;
+    }
 }
 
 void Guessing_Game()
@@ -180,8 +221,7 @@ void Guessing_Game()
         Mistype(closeResponse);
         First_Response(closeResponse, name);
     }
-    enum openResponseResolve { Resolve, Y, Null };
-    enum openResponseResolve resolve;
+    enum openResponseResolve { Resolve, Y, Null } resolve;
     int count = 0;
     int number = 100;
     int maxGuess = 100;
@@ -191,10 +231,7 @@ void Guessing_Game()
     bool liar = false;
     do 
     {
-        if (count != 3 && !myFirstGo)
-        {
-            FirstGoAround(number, maxGuess, minGuess, openResponse, myFirstGo);
-        }
+        Intro(correctNumbers, count, myFirstGo, number, maxGuess, minGuess, openResponse);
         if (openResponse == "Higher" || openResponse == "higher" || openResponse == "Lower" || openResponse == "lower")
         {
             resolve = Resolve;
@@ -213,7 +250,7 @@ void Guessing_Game()
                 ResolveIt(openResponse, number, maxGuess, minGuess, liar);
                 break;
             case Y:
-                PlayAgain(correctNumbers, number, closeResponse, myFirstGo);
+                PlayAgain(correctNumbers, number, closeResponse, myFirstGo, count);
                 break;
             default:
                 system("CLS");
