@@ -1,3 +1,8 @@
 ﻿  guessing_game.cpp
-C:\Users\ionsn\source\repos\guessing_game\guessing_game\guessing_game.cpp(165,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ionsn\source\repos\guessing_game\guessing_game\guessing_game.cpp(169,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ionsn\source\repos\guessing_game\guessing_game\guessing_game.cpp(179,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ionsn\source\repos\guessing_game\guessing_game\guessing_game.cpp(189,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ionsn\source\repos\guessing_game\guessing_game\guessing_game.cpp(286,18): warning C4129: 'd': unrecognized character escape sequence
+C:\Users\ionsn\source\repos\guessing_game\guessing_game\guessing_game.cpp(317,13): warning C4129: 'd': unrecognized character escape sequence
+C:\Users\ionsn\source\repos\guessing_game\guessing_game\guessing_game.cpp(347,13): warning C4129: 'd': unrecognized character escape sequence
   guessing_game.vcxproj -> C:\Users\ionsn\source\repos\guessing_game\Debug\guessing_game.exe
